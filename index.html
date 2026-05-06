@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naturals & Spine System | Acceso</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #005A9C;
+            --secondary-color: #0088CE;
+        }
+
+        body, html {
+            height: 100%;
+            background-color: #f8f9fa;
+        }
+
+        .bg-medical {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        .login-panel {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            padding: 3rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #004275;
+            border-color: #004275;
+        }
+
+        .brand-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+
+        <!-- Panel Izquierdo: Branding y Mensaje -->
+        <div class="col-lg-6 d-none d-lg-flex bg-medical flex-column justify-content-center align-items-center p-5 text-center">
+            <i class="fa-solid fa-staff-snake brand-logo"></i>
+            <h1 class="fw-bold mb-3">Naturals & Spine System</h1>
+            <p class="lead mb-4">Plataforma integral B2B para la gestión, logística y trazabilidad de equipo médico de alta especialidad en neurocirugía y columna.</p>
+
+            <div class="d-flex gap-3 text-start mt-4">
+                <div>
+                    <i class="fa-solid fa-file-contract fs-3"></i>
+                </div>
+                <div>
+                    <h5>Gestión Documental</h5>
+                    <p class="small text-white-50">Consulta de facturas y remisiones centralizadas.</p>
+                </div>
+            </div>
+            <div class="d-flex gap-3 text-start mt-2">
+                <div>
+                    <i class="fa-solid fa-truck-medical fs-3"></i>
+                </div>
+                <div>
+                    <h5>Trazabilidad en Tiempo Real</h5>
+                    <p class="small text-white-50">Seguimiento de órdenes de compra y renta institucionales.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Derecho: Formulario de Login -->
+        <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center bg-light">
+            <div class="login-panel w-100" style="max-width: 500px;">
+
+                <!-- Logo para versión móvil -->
+                <div class="text-center d-block d-lg-none mb-4 text-primary">
+                    <i class="fa-solid fa-staff-snake fs-1"></i>
+                    <h3 class="fw-bold mt-2 text-dark">Naturals & Spine System</h3>
+                </div>
+
+                <h3 class="fw-bold mb-1">Iniciar Sesión</h3>
+                <p class="text-muted mb-4">Ingresa con tus credenciales institucionales o de operador.</p>
+
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label fw-semibold">Correo Electrónico</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-regular fa-envelope text-muted"></i></span>
+                            <input type="email" class="form-control" id="emailInput" placeholder="correo@hospital.com" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="passwordInput" class="form-label fw-semibold">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-lock text-muted"></i></span>
+                            <input type="password" class="form-control" id="passwordInput" placeholder="••••••••" required>
+                            <button class="btn btn-outline-secondary bg-white border-start-0" type="button" id="togglePassword">
+                                <i class="fa-regular fa-eye text-muted"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label small" for="rememberMe">
+                                Recordar credenciales
+                            </label>
+                        </div>
+                        <a href="#" class="small text-decoration-none text-primary">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mb-3">
+                        Ingresar al Sistema <i class="fa-solid fa-arrow-right ms-2"></i>
+                    </button>
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <p class="small text-muted mb-2">¿Tu institución médica aún no es cliente?</p>
+                    <a href="registro.html" class="btn btn-outline-secondary w-100 py-2 mb-3">
+                        Solicitar Registro Institucional
+                    </a>
+
+                    <!-- BOTÓN DISCRETO PARA ACCESO A PROTOTIPO -->
+                    <div class="mt-4 p-2 bg-light border rounded">
+                        <span class="badge bg-warning text-dark mb-1">Modo Prototipo</span><br>
+                        <a href="dashboard-personal.html" class="text-decoration-none text-primary fw-semibold">
+                            <i class="fa-solid fa-user-shield"></i> Entrar al Dashboard Admin (Omitir Login)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('passwordInput');
+        const icon = this.querySelector('i');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Redirección simulada
+        window.location.href = 'dashboard-personal.html';
+    });
+</script>
+</body>
+</html>

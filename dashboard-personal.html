@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | Naturals & Spine System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #005A9C;
+            --sidebar-bg: #003b66;
+            --bg-light: #f4f6f9;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            color: white;
+            position: fixed;
+            width: 250px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar .brand {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-left: 4px solid #00d2ff;
+        }
+
+        .sidebar .nav-link i {
+            width: 25px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        /* Top Navbar */
+        .topbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .stat-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+            .sidebar.active {
+                margin-left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+    <div class="brand">
+        <i class="fa-solid fa-staff-snake me-2"></i>Naturals & Spine
+    </div>
+    <ul class="nav flex-column mt-3">
+        <li class="nav-item">
+            <a class="nav-link active menu-link" data-target="panel-principal"><i class="fa-solid fa-chart-pie"></i> Panel Principal</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menu-link" data-target="panel-clientes"><i class="fa-solid fa-hospital"></i> Clientes / Hospitales</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menu-link" data-target="panel-ordenes"><i class="fa-solid fa-file-invoice-dollar"></i> Gestión de Órdenes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"><i class="fa-solid fa-box-open"></i> Catálogo de Equipos</a>
+        </li>
+        <li class="nav-item mt-5">
+            <a class="nav-link text-danger" href="index.html"><i class="fa-solid fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+
+    <!-- Topbar -->
+    <div class="topbar d-flex justify-content-between align-items-center">
+        <button class="btn btn-light d-md-none" id="sidebarToggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h4 class="mb-0 fw-bold text-dark" id="page-title">Dashboard del Operador</h4>
+        <div class="d-flex align-items-center gap-3">
+            <div class="text-end d-none d-md-block">
+                <p class="mb-0 fw-bold" style="font-size: 0.9rem;">Lic. Roberto Ayala</p>
+                <p class="mb-0 text-muted" style="font-size: 0.8rem;">Administrador / Logística</p>
+            </div>
+            <img src="https://ui-avatars.com/api/?name=Roberto+Ayala&background=005A9C&color=fff" alt="Perfil" class="rounded-circle" width="45">
+        </div>
+    </div>
+
+    <!-- ==========================================
+         PANEL 1: DASHBOARD PRINCIPAL
+         ========================================== -->
+    <div id="panel-principal" class="view-panel">
+        <!-- Dashboard Widgets -->
+        <div class="row g-4 mb-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted mb-2">Órdenes Pendientes</h6>
+                            <h3 class="mb-0 fw-bold">8</h3>
+                        </div>
+                        <div class="icon-circle bg-warning bg-opacity-10 text-warning">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted mb-2">Órdenes en Proceso</h6>
+                            <h3 class="mb-0 fw-bold">14</h3>
+                        </div>
+                        <div class="icon-circle bg-primary bg-opacity-10 text-primary">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted mb-2">Nuevos Clientes</h6>
+                            <h3 class="mb-0 fw-bold">2</h3>
+                        </div>
+                        <div class="icon-circle bg-danger bg-opacity-10 text-danger">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted mb-2">Documentos Cargados</h6>
+                            <h3 class="mb-0 fw-bold">45</h3>
+                        </div>
+                        <div class="icon-circle bg-success bg-opacity-10 text-success">
+                            <i class="fa-solid fa-folder-open"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- SECCIÓN: VALIDAR CLIENTES PENDIENTES (Resumen) -->
+            <div class="col-12 col-xl-4">
+                <div class="card stat-card h-100 border-0">
+                    <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0 fw-bold"><i class="fa-solid fa-user-shield text-primary me-2"></i> Por Validar (CU03)</h6>
+                        <span class="badge bg-danger rounded-pill">2 Ptes</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <!-- Cliente Pendiente 1 -->
+                            <div class="list-group-item p-3">
+                                <div class="d-flex w-100 justify-content-between align-items-center mb-1">
+                                    <h6 class="mb-1 fw-bold">Hospital Ángeles del Sur</h6>
+                                    <small class="text-muted">Hace 2 hrs</small>
+                                </div>
+                                <p class="mb-2 small text-muted">RFC: HAS980715XX1</p>
+                                <button class="btn btn-sm btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#modalValidarCliente">
+                                    <i class="fa-solid fa-file-signature"></i> Revisar Documentación
+                                </button>
+                            </div>
+                            <!-- Cliente Pendiente 2 -->
+                            <div class="list-group-item p-3">
+                                <div class="d-flex w-100 justify-content-between align-items-center mb-1">
+                                    <h6 class="mb-1 fw-bold">Clínica San José</h6>
+                                    <small class="text-muted">Ayer</small>
+                                </div>
+                                <p class="mb-2 small text-muted">RFC: CSJ120304ZZ9</p>
+                                <button class="btn btn-sm btn-outline-primary w-100">
+                                    <i class="fa-solid fa-file-signature"></i> Revisar Documentación
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light text-center border-0">
+                        <button class="btn btn-link text-decoration-none btn-sm" onclick="document.querySelector('[data-target=\'panel-clientes\']').click()">Ver todo el directorio</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN: ÓRDENES ACTIVAS -->
+            <div class="col-12 col-xl-8">
+                <div class="card stat-card border-0 h-100">
+                    <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0 fw-bold"><i class="fa-solid fa-bolt text-warning me-2"></i> Órdenes Activas Recientes</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4">ID Orden</th>
+                                    <th>Cliente</th>
+                                    <th>Estado Actual</th>
+                                    <th class="text-center pe-4">Acción Rápida</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="ps-4 fw-bold text-primary">#ORD-1024</td>
+                                    <td>Centro Médico ABC</td>
+                                    <td><span class="badge bg-warning text-dark"><i class="fa-solid fa-circle-pause"></i> Pendiente</span></td>
+                                    <td class="text-center pe-4">
+                                        <button class="btn btn-sm btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalIniciarTramite">
+                                            <i class="fa-solid fa-play"></i> Iniciar
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4 fw-bold text-primary">#ORD-1022</td>
+                                    <td>Hospital Español</td>
+                                    <td><span class="badge bg-primary text-white"><i class="fa-solid fa-spinner fa-spin"></i> Preparación</span></td>
+                                    <td class="text-center pe-4">
+                                        <button class="btn btn-sm btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEstadoOrden">
+                                            <i class="fa-solid fa-rotate"></i> Actualizar
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         PANEL 2: GESTIÓN DE CLIENTES / HOSPITALES
+         ========================================== -->
+    <div id="panel-clientes" class="view-panel d-none">
+        <div class="card stat-card border-0">
+            <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h5 class="mb-0 fw-bold"><i class="fa-solid fa-hospital text-primary me-2"></i> Directorio Institucional</h5>
+                <div class="d-flex gap-2">
+                    <div class="input-group input-group-sm" style="width: 250px;">
+                        <span class="input-group-text bg-light"><i class="fa-solid fa-search"></i></span>
+                        <input type="text" class="form-control" placeholder="Buscar RFC o Nombre...">
+                    </div>
+                    <button class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Añadir Cliente</button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Razón Social / Institución</th>
+                            <th>RFC</th>
+                            <th>Contacto</th>
+                            <th>Fecha Registro</th>
+                            <th>Estado</th>
+                            <th class="text-center pe-4">Acciones y Documentos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Aprobado -->
+                        <tr>
+                            <td class="ps-4 fw-semibold">Centro Médico ABC S.A. de C.V.</td>
+                            <td class="text-muted">CMA123456ABC</td>
+                            <td>
+                                <div class="small">Dr. Roberto Sánchez</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">compras@centromedicoabc.com</div>
+                            </td>
+                            <td>10 May 2025</td>
+                            <td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Aprobado</span></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalDetalleCliente" title="Ver Detalles y Docs">
+                                    <i class="fa-solid fa-folder-open"></i> Expediente
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Aprobado -->
+                        <tr>
+                            <td class="ps-4 fw-semibold">Hospital Español Independiente</td>
+                            <td class="text-muted">HEI987654XYZ</td>
+                            <td>
+                                <div class="small">Lic. Marta Gómez</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">mgomez@hespanol.mx</div>
+                            </td>
+                            <td>15 Feb 2026</td>
+                            <td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Aprobado</span></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalDetalleCliente" title="Ver Detalles y Docs">
+                                    <i class="fa-solid fa-folder-open"></i> Expediente
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Pendiente -->
+                        <tr class="table-warning">
+                            <td class="ps-4 fw-semibold">Hospital Ángeles del Sur</td>
+                            <td class="text-muted">HAS980715XX1</td>
+                            <td>
+                                <div class="small">Dr. Fernando Ruiz</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">compras@angelessur.com</div>
+                            </td>
+                            <td>Hoy</td>
+                            <td><span class="badge bg-warning text-dark"><i class="fa-solid fa-hourglass-half"></i> Pendiente</span></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalValidarCliente" title="Validar Cliente">
+                                    <i class="fa-solid fa-user-shield"></i> Validar (CU03)
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Rechazado -->
+                        <tr>
+                            <td class="ps-4 fw-semibold text-muted text-decoration-line-through">Clínica Las Torres</td>
+                            <td class="text-muted">CLT456789123</td>
+                            <td>
+                                <div class="small text-muted">Ing. Luis Díaz</div>
+                            </td>
+                            <td>02 Ene 2026</td>
+                            <td><span class="badge bg-danger"><i class="fa-solid fa-ban"></i> Rechazado</span></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-sm btn-outline-secondary" title="Ver Motivo" onclick="alert('Motivo de rechazo: RFC Invalido y documentación ilegible.')">
+                                    <i class="fa-solid fa-circle-info"></i> Info
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         PANEL 3: GESTIÓN DE ÓRDENES (Completa)
+         ========================================== -->
+    <div id="panel-ordenes" class="view-panel d-none">
+        <div class="card stat-card border-0">
+            <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold"><i class="fa-solid fa-list-check text-primary me-2"></i> Gestión Integral de Órdenes</h5>
+                <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-download"></i> Exportar Reporte</button>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">ID Orden</th>
+                            <th>Cliente Institucional</th>
+                            <th>Tipo</th>
+                            <th>Estado Actual</th>
+                            <th class="text-center pe-4">Acciones (Casos de Uso)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">#ORD-1024</td>
+                            <td>
+                                <span class="d-block fw-semibold">Centro Médico ABC</span>
+                                <small class="text-muted">Set Instrumental Columna</small>
+                            </td>
+                            <td><span class="badge bg-secondary text-white">Renta</span></td>
+                            <td><span class="badge bg-warning text-dark"><i class="fa-solid fa-circle-pause"></i> Nueva (Pendiente)</span></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-sm btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalIniciarTramite">
+                                    <i class="fa-solid fa-play"></i> Iniciar Trámite (CU05)
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">#ORD-1022</td>
+                            <td>
+                                <span class="d-block fw-semibold">Hospital Español</span>
+                                <small class="text-muted">Monitor de Signos Vitales</small>
+                            </td>
+                            <td><span class="badge bg-dark text-white">Compra</span></td>
+                            <td><span class="badge bg-primary text-white"><i class="fa-solid fa-spinner fa-spin"></i> En Preparación</span></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEstadoOrden" title="Actualizar Estado">
+                                    <i class="fa-solid fa-rotate"></i> Estado
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalCargarDoc" title="Cargar Documento Oficial">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Docs
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">#ORD-1019</td>
+                            <td>
+                                <span class="d-block fw-semibold">Clínica Lomas</span>
+                                <small class="text-muted">Cama Quirúrgica B300</small>
+                            </td>
+                            <td><span class="badge bg-secondary text-white">Renta</span></td>
+                            <td><span class="badge bg-info text-dark"><i class="fa-solid fa-truck"></i> En Envío</span></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEstadoOrden" title="Actualizar Estado">
+                                    <i class="fa-solid fa-rotate"></i> Estado
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalCargarDoc" title="Cargar Documento Oficial">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Docs
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODALES PARA SIMULAR LOS CASOS DE USO
+     ========================================== -->
+
+<!-- Modal CU03: Validar y aprobar clientes (Revisión Inicial) -->
+<div class="modal fade" id="modalValidarCliente" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-shield text-primary"></i> Validar Cliente Institucional</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="fw-bold">Datos del Registro</h6>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item px-0"><b>Institución:</b> Hospital Ángeles del Sur</li>
+                            <li class="list-group-item px-0"><b>RFC:</b> HAS980715XX1</li>
+                            <li class="list-group-item px-0"><b>Contacto:</b> Dr. Fernando Ruiz</li>
+                            <li class="list-group-item px-0"><b>Correo:</b> compras@angelessur.com</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 border-start">
+                        <h6 class="fw-bold">Documentos Adjuntos (LFPDPPP)</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-secondary text-start"><i class="fa-regular fa-file-pdf text-danger"></i> Alta_SAT_RFC.pdf</button>
+                            <button class="btn btn-outline-secondary text-start"><i class="fa-regular fa-file-pdf text-danger"></i> Identificacion_RepLegal.pdf</button>
+                            <button class="btn btn-outline-secondary text-start"><i class="fa-solid fa-file-image text-primary"></i> Comprobante_Domicilio.jpg</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-danger"><i class="fa-solid fa-ban"></i> Rechazar</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="alert('Cliente Aprobado. Se ha enviado notificación al hospital.');"><i class="fa-solid fa-check"></i> Aprobar Cliente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Detalle de Cliente Aprobado -->
+<div class="modal fade" id="modalDetalleCliente" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-hospital"></i> Expediente del Cliente</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="fw-bold mb-0">Centro Médico ABC S.A. de C.V.</h4>
+                        <span class="text-muted">RFC: CMA123456ABC</span>
+                    </div>
+                    <span class="badge bg-success fs-6"><i class="fa-solid fa-check-circle"></i> Cuenta Activa</span>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded h-100">
+                            <h6 class="fw-bold border-bottom pb-2">Datos de Contacto</h6>
+                            <p class="mb-1"><i class="fa-solid fa-user me-2 text-primary"></i> Dr. Roberto Sánchez</p>
+                            <p class="mb-1"><i class="fa-solid fa-phone me-2 text-primary"></i> 55 1234 5678</p>
+                            <p class="mb-1"><i class="fa-solid fa-envelope me-2 text-primary"></i> compras@centromedicoabc.com</p>
+                            <p class="mb-0 mt-3"><i class="fa-solid fa-map-pin me-2 text-primary"></i> Av. Observatorio 123, Miguel Hidalgo, CDMX</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded h-100">
+                            <h6 class="fw-bold border-bottom pb-2">Repositorio Legal</h6>
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action bg-transparent px-0"><i class="fa-regular fa-file-pdf text-danger me-2"></i> Cédula de Identificación Fiscal</a>
+                                <a href="#" class="list-group-item list-group-item-action bg-transparent px-0"><i class="fa-regular fa-file-pdf text-danger me-2"></i> Poder Notarial Rep. Legal</a>
+                                <a href="#" class="list-group-item list-group-item-action bg-transparent px-0"><i class="fa-regular fa-file-image text-primary me-2"></i> Identificación Oficial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger me-auto"><i class="fa-solid fa-lock"></i> Suspender Cuenta</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Editar Datos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal CU05: Iniciar trámite de orden -->
+<div class="modal fade" id="modalIniciarTramite" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Iniciar Trámite: Orden #ORD-1024</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fa-solid fa-clipboard-check text-success" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <p>Al iniciar este trámite, el sistema marcará la orden de renta de <b>"Set Instrumental Columna"</b> como <strong>"En Proceso"</strong> y se bloqueará el stock en inventario.</p>
+                <p class="small text-muted">El cliente recibirá una notificación automática de que su pedido está siendo atendido.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="alert('Trámite iniciado. Orden actualizada a EN PREPARACIÓN.');">Confirmar Inicio</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal CU06: Actualizar estado de orden -->
+<div class="modal fade" id="modalEstadoOrden" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Actualizar Estado de Logística</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Seleccionar nuevo estado:</label>
+                        <select class="form-select">
+                            <option value="revision">En Revisión</option>
+                            <option value="preparacion" selected>En Preparación</option>
+                            <option value="envio">En Envío (En Tránsito)</option>
+                            <option value="concluida">Entregada / Concluida</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Notas para el cliente (Opcional):</label>
+                        <textarea class="form-control" rows="2" placeholder="Ej. El equipo llegará por la tarde..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal" onclick="alert('Estado actualizado. Trazabilidad guardada.');"><i class="fa-solid fa-save"></i> Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal CU09: Cargar documentos -->
+<div class="modal fade" id="modalCargarDoc" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-cloud-arrow-up text-primary"></i> Subir Documentación Oficial</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="small text-muted">Sube los documentos administrativos a Google Cloud Storage para que el cliente pueda descargarlos desde su portal.</p>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Tipo de Documento:</label>
+                        <select class="form-select">
+                            <option value="factura">Factura Electrónica (XML/PDF)</option>
+                            <option value="remision">Remisión de Entrega</option>
+                            <option value="contrato">Contrato de Arrendamiento</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Archivo:</label>
+                        <input class="form-control" type="file" accept=".pdf,.jpg,.png">
+                        <div class="form-text">Solo se permiten formatos PDF, JPG, PNG (Max 5MB). Regla RN03.</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="alert('Documento encriptado y subido al Repositorio. Vinculado a la Orden.');"><i class="fa-solid fa-upload"></i> Cargar al Repositorio</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Lógica de navegación entre paneles del menú
+    document.querySelectorAll('.menu-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Solo si el link tiene un data-target
+            if(this.getAttribute('data-target')) {
+                e.preventDefault();
+
+                // Remover 'active' de todos los links
+                document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+                // Añadir 'active' al seleccionado
+                this.classList.add('active');
+
+                // Ocultar todos los paneles
+                document.querySelectorAll('.view-panel').forEach(panel => panel.classList.add('d-none'));
+
+                // Mostrar el panel objetivo
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.remove('d-none');
+
+                // Actualizar el título de la página móvil si se desea (opcional)
+                document.getElementById('page-title').innerText = this.innerText.trim();
+
+                // Cerrar el sidebar en móviles al hacer click
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            }
+        });
+    });
+
+    // Toggle Sidebar en móviles
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('active');
+    });
+</script>
+</body>
+</html>
