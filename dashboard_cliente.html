@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Institucional | Naturals & Spine System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #0088CE; /* Un azul ligeramente distinto para diferenciar del admin */
+      --sidebar-bg: #1e293b;
+      --bg-light: #f8fafc;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      height: 100vh;
+      background-color: var(--sidebar-bg);
+      color: white;
+      position: fixed;
+      width: 250px;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .sidebar .brand {
+      padding: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #38bdf8;
+    }
+
+    .sidebar .nav-link {
+      color: rgba(255,255,255,0.7);
+      padding: 1rem 1.5rem;
+      border-radius: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .sidebar .nav-link:hover, .sidebar .nav-link.active {
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .sidebar .nav-link i {
+      width: 25px;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    /* Top Navbar */
+    .topbar {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      border-top: 4px solid var(--primary-color);
+    }
+
+    /* Cards */
+    .stat-card {
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      transition: transform 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .icon-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        margin-left: -250px;
+      }
+      .sidebar.active {
+        margin-left: 0;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <div class="brand">
+    <i class="fa-solid fa-hospital-user me-2"></i>Portal Institucional
+  </div>
+  <ul class="nav flex-column mt-3">
+    <li class="nav-item">
+      <a class="nav-link active menu-link" data-target="panel-resumen"><i class="fa-solid fa-chart-line"></i> Resumen Operativo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menu-link" data-target="panel-nueva-orden"><i class="fa-solid fa-cart-plus"></i> Registrar Orden (CU04)</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menu-link" data-target="panel-historial"><i class="fa-solid fa-clock-rotate-left"></i> Historial y Documentos</a>
+    </li>
+    <li class="nav-item mt-5">
+      <a class="nav-link text-danger" href="index.html"><i class="fa-solid fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+
+  <!-- Topbar -->
+  <div class="topbar d-flex justify-content-between align-items-center">
+    <button class="btn btn-light d-md-none" id="sidebarToggle">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <h4 class="mb-0 fw-bold text-dark" id="page-title">Resumen Operativo</h4>
+    <div class="d-flex align-items-center gap-3">
+      <div class="text-end d-none d-md-block">
+        <p class="mb-0 fw-bold" style="font-size: 0.9rem;">Hospital Ángeles del Sur</p>
+        <p class="mb-0 text-muted" style="font-size: 0.8rem;">Dr. Fernando Ruiz (Compras)</p>
+      </div>
+      <img src="https://ui-avatars.com/api/?name=Hospital+Angeles&background=0284c7&color=fff" alt="Perfil" class="rounded-circle" width="45">
+    </div>
+  </div>
+
+  <!-- ==========================================
+       PANEL 1: RESUMEN OPERATIVO
+       ========================================== -->
+  <div id="panel-resumen" class="view-panel">
+    <div class="row g-4 mb-4">
+      <div class="col-12 col-md-4">
+        <div class="card stat-card h-100 border-primary border-opacity-25 border-top-0 border-end-0 border-bottom-0 border-4">
+          <div class="card-body d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="text-muted mb-2">Equipos Activos en Renta</h6>
+              <h3 class="mb-0 fw-bold text-primary">3</h3>
+            </div>
+            <div class="icon-circle bg-primary bg-opacity-10 text-primary">
+              <i class="fa-solid fa-bed-pulse"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card stat-card h-100 border-warning border-opacity-50 border-top-0 border-end-0 border-bottom-0 border-4">
+          <div class="card-body d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="text-muted mb-2">Órdenes en Trámite</h6>
+              <h3 class="mb-0 fw-bold text-warning">1</h3>
+            </div>
+            <div class="icon-circle bg-warning bg-opacity-10 text-warning">
+              <i class="fa-solid fa-truck-fast"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card stat-card h-100 border-success border-opacity-50 border-top-0 border-end-0 border-bottom-0 border-4">
+          <div class="card-body d-flex align-items-center justify-content-between">
+            <div>
+              <h6 class="text-muted mb-2">Facturas Listas para Descarga</h6>
+              <h3 class="mb-0 fw-bold text-success">12</h3>
+            </div>
+            <div class="icon-circle bg-success bg-opacity-10 text-success">
+              <i class="fa-solid fa-file-invoice"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de estatus rápido -->
+    <div class="card stat-card border-0">
+      <div class="card-header bg-white border-bottom py-3">
+        <h6 class="mb-0 fw-bold"><i class="fa-solid fa-bell text-primary me-2"></i> Mis Pedidos Recientes</h6>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light">
+            <tr>
+              <th class="ps-4">ID Orden</th>
+              <th>Detalle</th>
+              <th>Fecha Solicitud</th>
+              <th>Estado de Naturals & Spine</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="ps-4 fw-bold text-primary">#ORD-1025</td>
+              <td>Set Instrumental Columna (Renta)</td>
+              <td>Hoy, 09:30 AM</td>
+              <td><span class="badge bg-warning text-dark"><i class="fa-solid fa-clock"></i> Pendiente de Revisión</span></td>
+            </tr>
+            <tr>
+              <td class="ps-4 fw-bold text-primary">#ORD-1018</td>
+              <td>Monitor Signos Vitales (Compra)</td>
+              <td>Ayer</td>
+              <td><span class="badge bg-info text-dark"><i class="fa-solid fa-truck"></i> En Envío</span></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       PANEL 2: REGISTRAR ORDEN (CU04)
+       ========================================== -->
+  <div id="panel-nueva-orden" class="view-panel d-none">
+    <div class="card stat-card border-0">
+      <div class="card-header bg-primary text-white py-3">
+        <h5 class="mb-0 fw-bold"><i class="fa-solid fa-cart-plus me-2"></i> Registrar Nueva Orden de Compra/Renta</h5>
+      </div>
+      <div class="card-body p-4">
+        <p class="text-muted mb-4">Complete los datos para generar una nueva solicitud logística en el sistema. Debe adjuntar su Orden de Compra institucional en PDF (Regla RN02).</p>
+
+        <form id="formNuevaOrden">
+          <div class="row g-4 mb-4">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Tipo de Operación *</label>
+              <select class="form-select" required>
+                <option value="" disabled selected>Seleccione el tipo...</option>
+                <option value="renta">Renta de Equipo Médico (Procedimiento temporal)</option>
+                <option value="compra">Compra Definitiva de Equipo</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Equipo Médico Solicitado *</label>
+              <select class="form-select" required>
+                <option value="" disabled selected>Seleccione del catálogo...</option>
+                <option value="eq1">Set Instrumental para Neurocirugía Básico</option>
+                <option value="eq2">Set Instrumental Columna Avanzado</option>
+                <option value="eq3">Mesa Quirúrgica Radiotransparente</option>
+                <option value="eq4">Motor Quirúrgico de Alta Velocidad</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Fecha Requerida *</label>
+              <input type="date" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Médico Cirujano (Opcional)</label>
+              <input type="text" class="form-control" placeholder="Nombre del Dr. a cargo">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Ubicación / Quirófano</label>
+              <input type="text" class="form-control" placeholder="Ej. Quirófano 3, Piso 2">
+            </div>
+          </div>
+
+          <hr class="mb-4">
+
+          <div class="mb-4 bg-light p-3 rounded border">
+            <h6 class="fw-bold mb-3"><i class="fa-solid fa-file-pdf text-danger me-2"></i> Adjuntar Orden de Compra Institucional</h6>
+            <label class="form-label small text-muted">Suba el documento oficial generado por su hospital que ampara esta solicitud (Formato PDF).</label>
+            <input class="form-control" type="file" accept=".pdf" required>
+          </div>
+
+          <div class="text-end">
+            <button type="button" class="btn btn-light me-2" onclick="document.querySelector('[data-target=\'panel-resumen\']').click()">Cancelar</button>
+            <button type="submit" class="btn btn-primary px-4 fw-bold"><i class="fa-solid fa-paper-plane me-2"></i> Enviar Solicitud al Proveedor</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       PANEL 3: HISTORIAL Y DOCUMENTOS (CU07, CU08, CU10)
+       ========================================== -->
+  <div id="panel-historial" class="view-panel d-none">
+    <div class="card stat-card border-0">
+      <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h5 class="mb-0 fw-bold"><i class="fa-solid fa-clock-rotate-left text-primary me-2"></i> Historial de Órdenes e Intercambio Documental</h5>
+        <div class="input-group input-group-sm" style="width: 250px;">
+          <span class="input-group-text bg-light"><i class="fa-solid fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Buscar por ID o Equipo...">
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light">
+            <tr>
+              <th class="ps-4">ID / Fecha</th>
+              <th>Equipo / Operación</th>
+              <th>Estatus Logístico</th>
+              <th class="text-center pe-4">Acciones de Trazabilidad</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Orden en proceso (Cargar Pago) -->
+            <tr>
+              <td class="ps-4">
+                <div class="fw-bold text-primary">#ORD-1018</div>
+                <div class="small text-muted">04/05/2026</div>
+              </td>
+              <td>
+                <span class="d-block fw-semibold">Monitor Signos Vitales</span>
+                <span class="badge bg-dark text-white">Compra</span>
+              </td>
+              <td><span class="badge bg-info text-dark"><i class="fa-solid fa-truck"></i> En Envío</span></td>
+              <td class="text-center pe-4">
+                <!-- CU08: Cargar comprobante de pago -->
+                <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalCargarPago" title="Subir Comprobante de Transferencia (CU08)">
+                  <i class="fa-solid fa-money-bill-transfer"></i> Subir Pago
+                </button>
+                <button class="btn btn-sm btn-secondary opacity-50" disabled title="Factura aún no generada">
+                  <i class="fa-solid fa-file-invoice"></i> Docs
+                </button>
+              </td>
+            </tr>
+
+            <!-- Orden Concluida (Descargar Documentos) -->
+            <tr>
+              <td class="ps-4">
+                <div class="fw-bold text-primary">#ORD-0985</div>
+                <div class="small text-muted">12/04/2026</div>
+              </td>
+              <td>
+                <span class="d-block fw-semibold">Motor Quirúrgico de Alta Vel.</span>
+                <span class="badge bg-secondary text-white">Renta</span>
+              </td>
+              <td><span class="badge bg-success"><i class="fa-solid fa-check-circle"></i> Concluida</span></td>
+              <td class="text-center pe-4">
+                <button class="btn btn-sm btn-success opacity-50" disabled title="Pago ya registrado">
+                  <i class="fa-solid fa-check"></i> Pagado
+                </button>
+                <!-- CU10: Descargar documentación -->
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalDescargarDocs" title="Descargar Facturas y Remisiones (CU10)">
+                  <i class="fa-solid fa-download"></i> Ver Docs
+                </button>
+              </td>
+            </tr>
+
+            <!-- Orden Concluida antigua -->
+            <tr>
+              <td class="ps-4">
+                <div class="fw-bold text-primary">#ORD-0910</div>
+                <div class="small text-muted">20/01/2026</div>
+              </td>
+              <td>
+                <span class="d-block fw-semibold">Mesa Quirúrgica</span>
+                <span class="badge bg-secondary text-white">Renta</span>
+              </td>
+              <td><span class="badge bg-success"><i class="fa-solid fa-check-circle"></i> Concluida</span></td>
+              <td class="text-center pe-4">
+                <button class="btn btn-sm btn-success opacity-50" disabled>
+                  <i class="fa-solid fa-check"></i> Pagado
+                </button>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalDescargarDocs">
+                  <i class="fa-solid fa-download"></i> Ver Docs
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==========================================
+     MODALES PARA SIMULAR LOS CASOS DE USO (Cliente)
+     ========================================== -->
+
+<!-- Modal CU08: Cargar comprobante de pago -->
+<div class="modal fade" id="modalCargarPago" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold"><i class="fa-solid fa-money-bill-transfer text-success me-2"></i> Subir Comprobante de Pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted small">Cargue el comprobante de transferencia bancaria o pago correspondiente a la orden <strong>#ORD-1018</strong>.</p>
+        <form>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Archivo del Comprobante (PDF/JPG)</label>
+            <input class="form-control" type="file" accept=".pdf,.jpg,.png" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Número de Referencia (Opcional)</label>
+            <input class="form-control" type="text" placeholder="Ej. Ref 12345678">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="alert('Comprobante subido exitosamente. El administrador lo revisará.');"><i class="fa-solid fa-upload"></i> Subir Comprobante</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal CU10: Descargar Documentación Oficial -->
+<div class="modal fade" id="modalDescargarDocs" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title fw-bold"><i class="fa-solid fa-file-invoice me-2"></i> Repositorio de la Orden #ORD-0985</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-3 text-muted">A continuación se listan los documentos emitidos por Naturals & Spine System listos para su descarga corporativa.</p>
+
+        <div class="list-group">
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <i class="fa-regular fa-file-pdf text-danger fs-4 me-2 align-middle"></i>
+              <span class="fw-semibold">Factura_ORD0985.pdf</span>
+            </div>
+            <button class="btn btn-sm btn-outline-primary" onclick="alert('Descargando archivo desde la nube...')"><i class="fa-solid fa-download"></i></button>
+          </div>
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <i class="fa-solid fa-file-code text-secondary fs-4 me-2 align-middle"></i>
+              <span class="fw-semibold">Factura_ORD0985.xml</span>
+            </div>
+            <button class="btn btn-sm btn-outline-primary" onclick="alert('Descargando archivo desde la nube...')"><i class="fa-solid fa-download"></i></button>
+          </div>
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <i class="fa-regular fa-file-lines text-info fs-4 me-2 align-middle"></i>
+              <span class="fw-semibold">Remision_Entrega_Firmada.pdf</span>
+            </div>
+            <button class="btn btn-sm btn-outline-primary" onclick="alert('Descargando archivo desde la nube...')"><i class="fa-solid fa-download"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Lógica de navegación entre paneles del menú
+  document.querySelectorAll('.menu-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      if(this.getAttribute('data-target')) {
+        e.preventDefault();
+
+        // Remover 'active'
+        document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+
+        // Ocultar paneles
+        document.querySelectorAll('.view-panel').forEach(panel => panel.classList.add('d-none'));
+
+        // Mostrar panel
+        const targetId = this.getAttribute('data-target');
+        document.getElementById(targetId).classList.remove('d-none');
+
+        // Actualizar título
+        document.getElementById('page-title').innerText = this.innerText.trim();
+
+        // Cerrar sidebar en móviles
+        if (window.innerWidth <= 768) {
+          document.getElementById('sidebar').classList.remove('active');
+        }
+      }
+    });
+  });
+
+  // Toggle Sidebar en móviles
+  document.getElementById('sidebarToggle').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('active');
+  });
+
+  // Simular envío de nueva orden (CU04)
+  document.getElementById('formNuevaOrden').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert("¡Orden enviada con éxito!\n\nNaturals & Spine System ha recibido su solicitud y su orden de compra institucional adjunta. Puede revisar el estatus desde su historial.");
+    document.querySelector('[data-target=\'panel-historial\']').click(); // Redirige a la pestaña de historial
+  });
+</script>
+</body>
+</html>

@@ -136,10 +136,13 @@
                     </a>
 
                     <!-- BOTÓN DISCRETO PARA ACCESO A PROTOTIPO -->
-                    <div class="mt-4 p-2 bg-light border rounded">
-                        <span class="badge bg-warning text-dark mb-1">Modo Prototipo</span><br>
-                        <a href="dashboard-personal.html" class="text-decoration-none text-primary fw-semibold">
-                            <i class="fa-solid fa-user-shield"></i> Entrar al Dashboard Admin (Omitir Login)
+                    <div class="mt-4 p-3 bg-light border rounded text-start">
+                        <div class="text-center mb-2"><span class="badge bg-warning text-dark">Modo Prototipo (Accesos Rápidos)</span></div>
+                        <a href="dashboard_admin.html" class="btn btn-sm btn-outline-primary w-100 mb-2 fw-semibold">
+                            <i class="fa-solid fa-user-shield"></i> Dashboard Empresa (Admin)
+                        </a>
+                        <a href="dashboard_cliente.html" class="btn btn-sm btn-outline-success w-100 fw-semibold">
+                            <i class="fa-solid fa-hospital-user"></i> Dashboard Hospital (Cliente)
                         </a>
                     </div>
                 </div>
@@ -169,7 +172,7 @@
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
         // Redirección simulada
-        window.location.href = 'dashboard-personal.html';
+        window.location.href = 'dashboard_admin.html';
     });
 </script>
 </body>

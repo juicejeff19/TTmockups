@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro Institucional | Naturals & Spine System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #005A9C;
+      --bg-light: #f4f6f9;
+    }
+    body {
+      background-color: var(--bg-light);
+    }
+    .header-brand {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    .registration-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header-brand shadow-sm mb-4">
+  <h3 class="fw-bold mb-0"><i class="fa-solid fa-staff-snake me-2"></i> Naturals & Spine System</h3>
+  <p class="mb-0 small opacity-75">Portal de Alta Institucional B2B</p>
+</div>
+
+<div class="container pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="index.html" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i> Volver al Inicio</a>
+        <span class="badge bg-primary px-3 py-2">Paso Único de Registro</span>
+      </div>
+
+      <div class="card registration-card">
+        <div class="card-body p-4 p-md-5">
+          <h4 class="fw-bold text-center mb-1">Solicitud de Registro como Cliente</h4>
+          <p class="text-center text-muted mb-4 small">Complete los datos de su institución de salud. Su cuenta será validada por nuestro equipo antes de poder operar (Regla de Negocio RN01).</p>
+
+          <form id="registroForm">
+            <!-- Sección 1: Datos Institucionales -->
+            <h6 class="fw-bold text-primary border-bottom pb-2 mb-3"><i class="fa-solid fa-building me-2"></i> 1. Datos Institucionales y Fiscales</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-8">
+                <label class="form-label fw-semibold small">Nombre de la Institución / Razón Social *</label>
+                <input type="text" class="form-control" placeholder="Ej. Hospital Ángeles del Sur S.A. de C.V." required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold small">RFC *</label>
+                <input type="text" class="form-control text-uppercase" placeholder="HAS980715XX1" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-semibold small">Dirección Fiscal Completa *</label>
+                <input type="text" class="form-control" placeholder="Calle, Número, Colonia, Alcaldía/Municipio, C.P., Estado" required>
+              </div>
+            </div>
+
+            <!-- Sección 2: Contacto -->
+            <h6 class="fw-bold text-primary border-bottom pb-2 mb-3"><i class="fa-solid fa-address-book me-2"></i> 2. Datos de Contacto Principal</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-12">
+                <label class="form-label fw-semibold small">Nombre Completo del Responsable *</label>
+                <input type="text" class="form-control" placeholder="Ej. Dr. Fernando Ruiz" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold small">Correo Electrónico Institucional *</label>
+                <input type="email" class="form-control" placeholder="compras@hospital.com" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold small">Teléfono de Contacto *</label>
+                <input type="tel" class="form-control" placeholder="55 1234 5678" required>
+              </div>
+            </div>
+
+            <!-- Sección 3: Documentación Legal -->
+            <h6 class="fw-bold text-primary border-bottom pb-2 mb-3"><i class="fa-solid fa-file-shield me-2"></i> 3. Documentación Oficial (LFPDPPP)</h6>
+            <p class="small text-muted mb-3">Para cumplir con la normativa sanitaria e institucional, adjunte los siguientes archivos en formato PDF o Imagen (Max. 5MB).</p>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold small">Constancia de Situación Fiscal (Alta SAT) *</label>
+              <input class="form-control form-control-sm" type="file" accept=".pdf,.jpg,.png" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold small">Identificación Oficial del Representante Legal *</label>
+              <input class="form-control form-control-sm" type="file" accept=".pdf,.jpg,.png" required>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-semibold small">Comprobante de Domicilio de la Institución *</label>
+              <input class="form-control form-control-sm" type="file" accept=".pdf,.jpg,.png" required>
+            </div>
+
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="avisoPrivacidad" required>
+              <label class="form-check-label small text-muted" for="avisoPrivacidad">
+                He leído y acepto el <a href="#">Aviso de Privacidad</a> para el tratamiento de datos sensibles (Cumplimiento LFPDPPP).
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+              <i class="fa-solid fa-paper-plane me-2"></i> Enviar Solicitud de Registro
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('registroForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert("¡Solicitud Recibida Exitosamente!\n\nSu documentación ha sido enviada al personal de Naturals & Spine System. Recibirá un correo electrónico una vez que su cuenta sea validada y aprobada para operar en el sistema.");
+    window.location.href = 'index.html'; // Redirige al inicio
+  });
+</script>
+</body>
+</html>
